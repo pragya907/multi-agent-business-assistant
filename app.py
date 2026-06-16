@@ -134,15 +134,17 @@ elif agent_choice == "SQL Agent":
         )
 
     if st.button("Generate SQL and Answer"):
-            if user_question:
-                query = rule_based_sql_agent(user_question)
+    if user_question:
 
-if query is None:
-    query = sql_agent(user_question, table_schema)
-    st.subheader("Generated SQL Query")
-    st.code(query, language="sql")
+        query = rule_based_sql_agent(user_question)
 
-result = run_sql_query(query)
+        if query is None:
+            query = sql_agent(user_question, table_schema)
 
-st.subheader("Answer")
-st.dataframe(result)
+        st.subheader("Generated SQL Query")
+        st.code(query, language="sql")
+
+        result = run_sql_query(query)
+
+        st.subheader("Answer")
+        st.dataframe(result)
