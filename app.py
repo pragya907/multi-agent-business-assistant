@@ -107,7 +107,6 @@ elif agent_choice == "Manager Agent":
         if user_request:
             result = manager_agent(user_request)
             st.write(result)
-
 elif agent_choice == "SQL Agent":
     st.header("🗄️ Natural Language SQL Agent")
 
@@ -132,11 +131,10 @@ elif agent_choice == "SQL Agent":
         user_question = st.text_input(
             "Ask a question about your data"
         )
-
-    if st.button("Generate SQL and Answer"):
+if st.button("Generate SQL and Answer"):
     if user_question:
 
-        query = rule_based_sql_agent(user_question)
+       query = rule_based_sql_agent(user_question)
 
         if query is None:
             query = sql_agent(user_question, table_schema)
