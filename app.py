@@ -123,26 +123,29 @@ elif agent_choice == "SQL Agent":
 
         st.subheader("Data Preview")
         st.dataframe(df)
+
         save_dataframe_to_db(df, "sales")
         st.success("Data saved into SQLite database table: sales")
 
         table_schema = str(df.dtypes)
 
-        user_question = st.text_input(
-            "Ask a question about your data"
-        )
-if st.button("Generate SQL and Answer"):
-    if user_question:
+        user_question = st.text_input("Ask a question about your data")
 
-       query = rule_based_sql_agent(user_question)
+        if st.button("Generate SQL and Answer"):
+            if user_question:
+                query = rule_based_sql_agent(user_question)
 
-        if query is None:
-            query = sql_agent(user_question, table_schema)
+                if query is None:
+                    query = sql_agent(user_question, table_schema)
 
-        st.subheader("Generated SQL Query")
-        st.code(query, language="sql")
+                st.subheader("Generated SQL Query")
+                st.code(query, language="sql")
 
-        result = run_sql_query(query)
+                result = run_sql_query(query)
 
-        st.subheader("Answer")
-        st.dataframe(result)
+                st.subheader("Answer")
+                st.dataframe(result)
+            else:
+                st.warning("Please enter a question first.")
+    else:
+        st.info("Please upload a CSV or Excel file first.")
